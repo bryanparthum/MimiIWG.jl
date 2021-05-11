@@ -10,6 +10,7 @@ _page_ch4_shocks[2030] = _page_xf["Sheet1"]["W4:AA13"]
 _page_ch4_shocks[2040] = _page_xf["Sheet1"]["AD4:AH13"]
 _page_ch4_shocks[2050] = _page_xf["Sheet1"]["AK4:AO13"]
 _page_ch4_shocks[2060] = _page_xf["Sheet1"]["AR4:AV13"]
+_page_ch4_shocks[2070] = _page_xf["Sheet1"]["AY4:BC13"]
 
 _page_n2o_shocks = Dict()
 _page_n2o_shocks[2010] = _page_xf["Sheet1"]["I18:M27"]
@@ -18,6 +19,7 @@ _page_n2o_shocks[2030] = _page_xf["Sheet1"]["W18:AA27"]
 _page_n2o_shocks[2040] = _page_xf["Sheet1"]["AD18:AH27"]
 _page_n2o_shocks[2050] = _page_xf["Sheet1"]["AK18:AO27"]
 _page_n2o_shocks[2060] = _page_xf["Sheet1"]["AR18:AV27"]
+_page_n2o_shocks[2070] = _page_xf["Sheet1"]["AY18:BC27"]
 
 # Exogenous HFC marginal forcing pathways
 
@@ -48,7 +50,7 @@ function _get_hfc_marginal_forcings(gas::Symbol, year::Int)
     years_index = collect(year:(year + 300 - 1)) # 300 is the number of years for which we have the rf data for each HFC
     insertcols!(HFC_df, 2, :years_index => years_index)
 
-    pulse_years = append!(collect(year:10:2060), [2080, 2100, 2200, 2300]) ## note: written like this, i think that PAGE will only work for pulse years 2020:10:2060
+    pulse_years = append!(collect(year:10:2070), [2080, 2100, 2200, 2300]) ## note: written like this, i think that PAGE will only work for pulse years 2020:10:2070
     
     ## AVERAGING METHOD
     average_rf = DataFrame(year=page_years, avg_rf=zeros(length(page_years)))
