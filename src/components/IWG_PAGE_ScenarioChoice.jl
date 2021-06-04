@@ -33,24 +33,24 @@
     exf_excessforcing_all = Parameter(index=[time, scenarios])
 
     function run_timestep(p, v, d, t)
-    if is_first(t)
+        if is_first(t)
             # Get the specified scenario
-        scenario_num = p.scenario_num
-        if ! (scenario_num in d.scenarios)
-            error("Invalid :scenario_num in :IWGScenarioChoice component: $scenario_num. :scenario_num must be in $(d.scenarios).")
-        else
+            scenario_num = p.scenario_num
+            if ! (scenario_num in d.scenarios)
+                error("Invalid :scenario_num in :IWGScenarioChoice component: $scenario_num. :scenario_num must be in $(d.scenarios).")
+            else
                 # Copy over all of the values for that scenario
-            v.gdp_0[:] = p.gdp_0_all[:, scenario_num]
-            v.grw_gdpgrowthrate[:, :] = p.grw_gdpgrowthrate_all[:, :, scenario_num]
-            v.GDP_per_cap_focus_0_FocusRegionEU = p.GDP_per_cap_focus_0_FocusRegionEU_all[scenario_num]
-            v.pop0_initpopulation[:] = p.pop0_initpopulation_all[:, scenario_num]
-            v.popgrw_populationgrowth[:, :] = p.popgrw_populationgrowth_all[:, :, scenario_num]
-            v.e0_baselineCO2emissions[:] = p.e0_baselineCO2emissions_all[:, scenario_num] 
-            v.e0_globalCO2emissions = p.e0_globalCO2emissions_all[scenario_num]
-            v.er_CO2emissionsgrowth[:, :] = p.er_CO2emissionsgrowth_all[:, :, scenario_num]
-            v.f0_CO2baseforcing = p.f0_CO2baseforcing_all[scenario_num]
-            v.exf_excessforcing[:] = p.exf_excessforcing_all[:, scenario_num]
+                v.gdp_0[:] = p.gdp_0_all[:, scenario_num]
+                v.grw_gdpgrowthrate[:, :] = p.grw_gdpgrowthrate_all[:, :, scenario_num]
+                v.GDP_per_cap_focus_0_FocusRegionEU = p.GDP_per_cap_focus_0_FocusRegionEU_all[scenario_num]
+                v.pop0_initpopulation[:] = p.pop0_initpopulation_all[:, scenario_num]
+                v.popgrw_populationgrowth[:, :] = p.popgrw_populationgrowth_all[:, :, scenario_num]
+                v.e0_baselineCO2emissions[:] = p.e0_baselineCO2emissions_all[:, scenario_num] 
+                v.e0_globalCO2emissions = p.e0_globalCO2emissions_all[scenario_num]
+                v.er_CO2emissionsgrowth[:, :] = p.er_CO2emissionsgrowth_all[:, :, scenario_num]
+                v.f0_CO2baseforcing = p.f0_CO2baseforcing_all[scenario_num]
+                v.exf_excessforcing[:] = p.exf_excessforcing_all[:, scenario_num]
+            end
         end
     end
-end
 end
