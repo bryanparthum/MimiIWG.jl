@@ -3,23 +3,23 @@ using DelimitedFiles
 
 @testset "PAGE" begin
 
-@testset "API" begin
+    @testset "API" begin
 
-    m = MimiIWG.get_model(PAGE, MimiIWG.scenarios[1])
-    run(m)
+        m = MimiIWG.get_model(PAGE, MimiIWG.scenarios[1])
+        run(m)
 
-    md1 = MimiIWG.get_marginaldamages(PAGE, MimiIWG.scenarios[1])
-    md2 = MimiIWG.get_marginaldamages(PAGE, MimiIWG.scenarios[1], regional=true)
+        md1 = MimiIWG.get_marginaldamages(PAGE, MimiIWG.scenarios[1])
+        md2 = MimiIWG.get_marginaldamages(PAGE, MimiIWG.scenarios[1], regional=true)
 
-    scc1 = MimiIWG.compute_scc(PAGE, MimiIWG.scenarios[1])
-    scc2 = MimiIWG.compute_scc(PAGE, MimiIWG.scenarios[1], domestic=true)
-    @test scc2 < scc1
+        scc1 = MimiIWG.compute_scc(PAGE, MimiIWG.scenarios[1])
+        scc2 = MimiIWG.compute_scc(PAGE, MimiIWG.scenarios[1], domestic=true)
+        @test scc2 < scc1
 
-    tmp_dir = joinpath(@__DIR__, "tmp")
-    MimiIWG.run_scc_mcs(PAGE, trials=2, output_dir=tmp_dir, domestic=true)
-    rm(tmp_dir, recursive=true)
+        tmp_dir = joinpath(@__DIR__, "tmp")
+        MimiIWG.run_scc_mcs(PAGE, trials=2, output_dir=tmp_dir, domestic=true)
+        rm(tmp_dir, recursive=true)
 
-end
+    end
 
 @testset "Deterministic SCC validation" begin 
 

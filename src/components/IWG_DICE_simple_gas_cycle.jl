@@ -32,33 +32,33 @@
 
     function run_timestep(p, v, d, t)
 
-    function f(M_A, N_A)
+        function f(M_A, N_A)
             # calculate the interaction effect on radiative forcing
-        return 0.47 * log(1 + 2.01 * 10^-5 * (M_A * N_A)^0.75 + 5.31 * 10^-15 * M_A * (M_A * N_A)^1.52)
-    end
+            return 0.47 * log(1 + 2.01 * 10^-5 * (M_A * N_A)^0.75 + 5.31 * 10^-15 * M_A * (M_A * N_A)^1.52)
+        end
 
         # Calculate the annual atmospheric concentrations
-    if is_first(t)
-        v.M_AA[t] = p.M_AA_2005
-        v.N_AA[t] = p.N_AA_2005  
+        if is_first(t)
+            v.M_AA[t] = p.M_AA_2005
+            v.N_AA[t] = p.N_AA_2005  
 
-        v.pre_f = f(p.M_pre, p.N_pre)   # only need to calculate this once; used in each timestep below
-    else
-        v.M_AA[t] = (1 - p.delta_ch4) * v.M_AA[t - 1] + p.delta_ch4 * p.M_pre + p.gamma_ch4 * p.E_CH4A[t - 1]
-        v.N_AA[t] = (1 - p.delta_n2o) * v.N_AA[t - 1] + p.delta_n2o * p.N_pre + p.gamma_n2o * (28 / 44) * p.E_N2OA[t - 1]
-    end
+            v.pre_f = f(p.M_pre, p.N_pre)   # only need to calculate this once; used in each timestep below
+        else
+            v.M_AA[t] = (1 - p.delta_ch4) * v.M_AA[t - 1] + p.delta_ch4 * p.M_pre + p.gamma_ch4 * p.E_CH4A[t - 1]
+            v.N_AA[t] = (1 - p.delta_n2o) * v.N_AA[t - 1] + p.delta_n2o * p.N_pre + p.gamma_n2o * (28 / 44) * p.E_N2OA[t - 1]
+        end
 
         # Calculate the annual forcing
-    v.F_CH4A[t] = p.ipcc_adj * (p.alpha_ch4 * (sqrt(v.M_AA[t]) - sqrt(p.M_pre)) - (f(v.M_AA[t], p.N_pre) - v.pre_f))
-    v.F_N2OA[t] = p.alpha_n2o * (sqrt(v.N_AA[t]) - sqrt(p.N_pre)) - (f(p.M_pre, v.N_AA[t]) - v.pre_f)
+        v.F_CH4A[t] = p.ipcc_adj * (p.alpha_ch4 * (sqrt(v.M_AA[t]) - sqrt(p.M_pre)) - (f(v.M_AA[t], p.N_pre) - v.pre_f))
+        v.F_N2OA[t] = p.alpha_n2o * (sqrt(v.N_AA[t]) - sqrt(p.N_pre)) - (f(p.M_pre, v.N_AA[t]) - v.pre_f)
 
         # calculate the decadal forcing at the end
-    if is_last(t)
-        v.F_CH4[:] = mean(reshape(v.F_CH4A[:], 10, length(d.decades)), dims=1)
-        v.F_N2O[:] = mean(reshape(v.F_N2OA[:], 10, length(d.decades)), dims=1)
-    end
+        if is_last(t)
+            v.F_CH4[:] = mean(reshape(v.F_CH4A[:], 10, length(d.decades)), dims=1)
+            v.F_N2O[:] = mean(reshape(v.F_N2OA[:], 10, length(d.decades)), dims=1)
+        end
 
-end
+    end
 end
 
 

@@ -5,9 +5,9 @@
 
     function run_timestep(p, v, d, t)
 
-    if is_first(t)
-        v.climatesensitivity = 1.2 / (1.0 - p.roebakercsparameter)
+        if is_first(t)
+            v.climatesensitivity = 1.2 / (1.0 - p.roebakercsparameter)
+        end 
     end 
-end 
     
 end 

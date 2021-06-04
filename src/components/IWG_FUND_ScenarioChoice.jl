@@ -25,21 +25,21 @@
     acei_all        = Parameter(index=[time, regions, scenarios])
 
     function run_timestep(p, v, d, t)
-    if is_first(t)
+        if is_first(t)
             # Get the specified scenario
-        scenario_num = p.scenario_num
-        if ! (scenario_num in d.scenarios)
-            error("Invalid :scenario_num in :IWGScenarioChoice component: $scenario_num. :scenario_num must be in $(d.scenarios).")
-        else
+            scenario_num = p.scenario_num
+            if ! (scenario_num in d.scenarios)
+                error("Invalid :scenario_num in :IWGScenarioChoice component: $scenario_num. :scenario_num must be in $(d.scenarios).")
+            else
                 # Copy over all of the values for that scenario
-            v.globch4[:]        = p.globch4_all[:, scenario_num]
-            v.globn2o[:]        = p.globn2o_all[:, scenario_num]
-            v.pgrowth[:, :]     = p.pgrowth_all[:, :, scenario_num]
-            v.ypcgrowth[:, :]   = p.ypcgrowth_all[:, :, scenario_num]
-            v.aeei[:, :]        = p.aeei_all[:, :, scenario_num]
-            v.acei[:, :]        = p.acei_all[:, :, scenario_num]
+                v.globch4[:]        = p.globch4_all[:, scenario_num]
+                v.globn2o[:]        = p.globn2o_all[:, scenario_num]
+                v.pgrowth[:, :]     = p.pgrowth_all[:, :, scenario_num]
+                v.ypcgrowth[:, :]   = p.ypcgrowth_all[:, :, scenario_num]
+                v.aeei[:, :]        = p.aeei_all[:, :, scenario_num]
+                v.acei[:, :]        = p.acei_all[:, :, scenario_num]
 
+            end
         end
     end
-end
 end

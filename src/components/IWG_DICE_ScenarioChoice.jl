@@ -23,19 +23,19 @@
     k0_all      = Parameter(index=[scenarios])
 
     function run_timestep(p, v, d, t)
-    if is_first(t)
+        if is_first(t)
             # Get the specified scenario
-        scenario_num = p.scenario_num
-        if ! (scenario_num in d.scenarios)
-            error("Invalid :scenario_num in :IWGScenarioChoice component: $scenario_num. :scenario_num must be in $(d.scenarios).")
-        else
+            scenario_num = p.scenario_num
+            if ! (scenario_num in d.scenarios)
+                error("Invalid :scenario_num in :IWGScenarioChoice component: $scenario_num. :scenario_num must be in $(d.scenarios).")
+            else
                 # Copy over all of the values for that scenario
-            v.l[:]          = p.l_all[:, scenario_num]
-            v.E[:]          = p.E_all[:, scenario_num]
-            v.forcoth[:]    = p.forcoth_all[:, scenario_num]
-            v.al[:]         = p.al_all[:, scenario_num]
-            v.k0            = p.k0_all[scenario_num]
+                v.l[:]          = p.l_all[:, scenario_num]
+                v.E[:]          = p.E_all[:, scenario_num]
+                v.forcoth[:]    = p.forcoth_all[:, scenario_num]
+                v.al[:]         = p.al_all[:, scenario_num]
+                v.k0            = p.k0_all[scenario_num]
+            end
         end
     end
-end
 end

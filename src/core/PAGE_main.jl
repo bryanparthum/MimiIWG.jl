@@ -383,7 +383,7 @@ function compute_page_scc(scenario_choice::scenario_choice, gas::Symbol, year::I
         td_marginal = sum(marginal[:EquityWeighting, :addt_equityweightedimpact_discountedaggregated][:, 2])
     else 
         td_base = base[:EquityWeighting, :td_totaldiscountedimpacts]
-        td_marginal = marginal[:EquityWeighting, :td_totaldiscountedimpacts] 
+    td_marginal = marginal[:EquityWeighting, :td_totaldiscountedimpacts] 
     end
         
     EMUC = base[:EquityWeighting, :emuc_utilityconvexity]
